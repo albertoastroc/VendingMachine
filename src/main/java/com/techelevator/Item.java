@@ -8,9 +8,9 @@ public abstract class Item {
     private final String slot;
     private final String category;
 
-    public Item(String name, int quantity, double price, String slot, String category) {
+    public Item(String slot, String name, double price, String category, int quantity) {
         this.name = name;
-        this.quantity = quantity;
+        this.quantity = 5;
         this.price = price;
         this.slot = slot;
         this.category = category;
