@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,76 +13,73 @@ import java.util.Scanner;
  * your project. Feel free to refactor this code as you see fit.
  */
 public class VendingMachineCLI {
-static double balance = 0;
+
+    Scanner input = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        VendingMachineCLI cli = new VendingMachineCLI();
 
 
+        cli.run();
+    }
 
-	public static void main(String[] args) {
-		VendingMachineCLI cli = new VendingMachineCLI();
-		cli.run();
-	}
+    public void run() {
 
-	public void run() {
-		List<Item> tempTestList = loadSnacksFromInventory("main.csv");
-		System.out.println(tempTestList);
 
-	}
+        VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
+        List<Item> inventory = vendingMachine.loadSnacksFromInventory();
 
-	public static List<Item> loadSnacksFromInventory(String filename) {
-		List<Item> result = new ArrayList<>();
-		File input = new File(filename);
+        showMenu();
 
-		if (input.exists() && input.isFile()) {
-			try (Scanner inputScanner = new Scanner(input)) {
-				while (inputScanner.hasNextLine()) {
-					String currentLine = inputScanner.nextLine();
+        String mainMenuOption = input.nextLine().trim();
 
-					String[] splitValues = currentLine.split(",");
 
-					String slot = splitValues[0];
-					String name = splitValues[1];
-					String price = splitValues[2];
-					double priceDouble = Double.parseDouble(price);
-					String category = splitValues[3];
-					int quantity = 5;
+        if (mainMenuOption.equals("1")) {
 
-					Item current;
+            showInventory(inventory);
 
-					if (category.equals("Gum")) {
-						current = new Gum(slot, name, priceDouble, category, quantity);
+            System.out.println();
 
-					} else if (category.equals("Drink")) {
-						current = new Drink(slot, name, priceDouble, category, quantity);
+        } else if (mainMenuOption.equals("2")) {
+            System.out.println("Option entered was 2");
+        } else if (mainMenuOption.equals("3")) {
 
-					} else if (category.equals("Candy")) {
-						current = new Candy(slot, name, priceDouble, category, quantity);
 
-					} else {
-						current = new Munchy(slot, name, priceDouble, category, quantity);
-					}
-					result.add(current);
+            System.out.println("Option entered was 3");
+        }
 
-				}
+        showMenu();
 
-			} catch(FileNotFoundException e){
-					System.out.println("Something went wrong");
-				}
 
-			}
-			return result;
-	}
+    }
 
-	public static void toAddMoney(double insertedMoney) {
-		balance = balance + insertedMoney;
-	}
+    public void showInventory(List<Item> inventory){
 
-	public static void toSubtractMoney(double itemPrice) {
-		balance -= itemPrice;
-	}
+        for (int i = 0; i < inventory.size(); i++) {
 
-	
-	//  menu function
+            if (inventory.get(i).getQuantity() != 0) {
 
-	//  create and write log function
+                System.out.println(inventory.get(i));
+            }
+        }
+
+    }
+
+
+    public void showMenu() {
+
+        System.out.println("(1) Display Vending Machine Items");
+        System.out.println("(2) Purchase");
+        System.out.println("(3) Exit");
+        System.out.print("Enter 1 2 or 3 ");
+        System.out.println();
+
+    }
+
+
+    //  menu function
+
+    //  create and write log function
 
 }

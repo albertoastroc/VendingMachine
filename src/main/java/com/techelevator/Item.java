@@ -18,13 +18,7 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", slot='" + slot + '\'' +
-                ", category='" + category + '\'' +
-                '}';
+        return slot + " " + name + "    $" + price + " In stock: " + quantity;
     }
 
     public String getName() {
