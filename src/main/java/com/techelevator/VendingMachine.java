@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +16,14 @@ public class VendingMachine {
 
     private double balance;
     String inventoryFileName;
+    private HashMap<String, Integer> map = new HashMap<>();
 
     public double getBalance() {
         return balance;
+    }
+
+    public HashMap<String, Integer> getMap() {
+        return map;
     }
 
     public void addMoney(double insertedMoney) {
@@ -36,6 +42,8 @@ public class VendingMachine {
     public List<Item> loadSnacksFromInventory() {
         List<Item> result = new ArrayList<>();
         File input = new File(inventoryFileName);
+
+        int listIndex = 0;
 
         if (input.exists() && input.isFile()) {
             try (Scanner inputScanner = new Scanner(input)) {
@@ -65,7 +73,11 @@ public class VendingMachine {
                     } else {
                         current = new Munchy(slot, name, priceDouble, category, quantity);
                     }
+
                     result.add(current);
+
+                    map.put(slot, listIndex);
+                    listIndex++;
 
                 }
 

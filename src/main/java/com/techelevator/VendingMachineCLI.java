@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,12 +20,13 @@ public class VendingMachineCLI {
         cli.run();
     }
 
+
+
     public void run() {
 
 
         VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
         List<Item> inventory = vendingMachine.loadSnacksFromInventory();
-
 
 
         //First time the menu shows
@@ -34,7 +36,7 @@ public class VendingMachineCLI {
 
         //Check the chosen number
         //If the number is NOT 3, repeat, because when it's 3 we want to exit, we don't want it to repeat when 3
-        while (mainMenuOption != 3){
+        while (mainMenuOption != 3) {
 
             showMainMenu();
             mainMenuOption = input.nextInt();
@@ -45,7 +47,6 @@ public class VendingMachineCLI {
                 System.out.println();
                 showInventory(inventory);
                 System.out.println();
-
 
 
             } else if (mainMenuOption == 2) {
@@ -59,10 +60,13 @@ public class VendingMachineCLI {
 
                 System.out.println("Sub option " + subMenuOption);
 
-                while (subMenuOption != 3){
+                while (subMenuOption != 3) {
 
-                    if (subMenuOption == 1){
+                    if (subMenuOption == 1) {
 
+                        //NEED TO MAKE SURE ONLY NUMBERS NO LETTERS
+                        //TELL THE USER ONLY Y OR N WILL WORK
+                        //CHECK FOR CASE
 
                         Character moneyFeedMenu = 'Y';
                         while (moneyFeedMenu.equals('Y')) {
@@ -74,19 +78,39 @@ public class VendingMachineCLI {
                             System.out.println("Continue adding money? (Y/N)");
                             moneyFeedMenu = input.next().charAt(0);
                         }
-                    } else if (subMenuOption == 2){
+                    } else if (subMenuOption == 2) {
 
                         showInventory(inventory);
                         System.out.println("Choose an item");
                         //Show items
                         //User chooses items until they press 3
                         //When the user presses 3 return to main menu
-                        String itemChoice = input.nextLine();
+                        String itemChoice = input.next();
+
+                        //ACCOUNT FOR LOWER CASE LETTERS IN SLOT
+
+                        if (vendingMachine.getMap().containsKey(itemChoice)){
+
+                            int chosenItemIndex = vendingMachine.getMap().get(itemChoice);
+                            Item chosenItem = inventory.get(chosenItemIndex);
+                            vendingMachine.subtractMoney(chosenItem.getPrice());
+                            chosenItem.dispenseMessage();
+                            chosenItem.removeOneFromQuantity();
+                            System.out.println("Current Balance is " + vendingMachine.getBalance());
+
+                        }
+
+
+
+
                         if (itemChoice.equals("3")) {
 
-                    } else {
-                        subMenuOption = 3;
-                    }
+
+
+
+                        } else {
+                            subMenuOption = 3;
+                        }
 
                     } else {
                         subMenuOption = 0;
@@ -104,7 +128,7 @@ public class VendingMachineCLI {
         }
     }
 
-    public void showInventory(List<Item> inventory){
+    public void showInventory(List<Item> inventory) {
 
         for (int i = 0; i < inventory.size(); i++) {
 

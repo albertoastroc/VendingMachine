@@ -3,7 +3,7 @@ package com.techelevator;
 public abstract class Item {
 
     private final String name;
-    private final int quantity;
+    private int quantity;
     private final double price;
     private final String slot;
     private final String category;
@@ -23,6 +23,13 @@ public abstract class Item {
 
     public String getName() {
         return name;
+    }
+
+    public void removeOneFromQuantity(){
+
+        if (quantity != 0){
+            quantity -= 1;
+        }
     }
 
     public int getQuantity() {
