@@ -29,7 +29,6 @@ public class VendingMachineCLI {
 
         //First time the menu shows
         int mainMenuOption = 0;
-        int subMenuOption = 0;
         System.out.println("Main option " + mainMenuOption);
         //1
 
@@ -37,9 +36,8 @@ public class VendingMachineCLI {
         //If the number is NOT 3, repeat, because when it's 3 we want to exit, we don't want it to repeat when 3
         while (mainMenuOption != 3){
 
-
             showMainMenu();
-            mainMenuOption = Integer.parseInt(input.nextLine().trim());
+            mainMenuOption = input.nextInt();
 
             //If the option is 1
             if (mainMenuOption == 1) {
@@ -51,26 +49,25 @@ public class VendingMachineCLI {
                 System.out.println();
 
                 //Show menu
-                showMainMenu();
 
                 //Ask for new option
-                mainMenuOption = input.nextInt();
 
                 //when a option here is chosen/ this could be 1 2 or 3 again
                 //goes to line 41
 
             } else if (mainMenuOption == 2) {
 
+                mainMenuOption = 0;
+
                 showPurchaseMenu();
 
-                subMenuOption = Integer.parseInt(input.nextLine().trim());
+                int subMenuOption = input.nextInt();
 
 
                 System.out.println("Sub option " + subMenuOption);
 
                 if (subMenuOption == 3){
 
-                    mainMenuOption = 0;
                     System.out.println("Finish transaction");
                     continue;
 
@@ -91,8 +88,6 @@ public class VendingMachineCLI {
                     } else {
                         subMenuOption = 0;
                     }
-
-                    mainMenuOption = 0;
 
 
                     System.out.println("This is line 75");
