@@ -21,10 +21,15 @@ public class VendingMachine {
     }
 
     public void addMoney(double insertedMoney) {
-        balance += insertedMoney;
+
+        if (insertedMoney > 0){
+            balance += insertedMoney;
+        }
+
     }
 
     public void subtractMoney(double itemPrice) {
+
         balance -= itemPrice;
     }
 
