@@ -1,10 +1,5 @@
 package com.techelevator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,28 +25,84 @@ public class VendingMachineCLI {
         VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
         List<Item> inventory = vendingMachine.loadSnacksFromInventory();
 
-        showMenu();
-
-        String mainMenuOption = input.nextLine().trim();
 
 
-        if (mainMenuOption.equals("1")) {
+        //First time the menu shows
+        int mainMenuOption = 0;
+        int subMenuOption = 0;
+        System.out.println("Main option " + mainMenuOption);
+        //1
 
-            showInventory(inventory);
-
-            System.out.println();
-
-        } else if (mainMenuOption.equals("2")) {
-            System.out.println("Option entered was 2");
-        } else if (mainMenuOption.equals("3")) {
+        //Check the chosen number
+        //If the number is NOT 3, repeat, because when it's 3 we want to exit, we don't want it to repeat when 3
+        while (mainMenuOption != 3){
 
 
-            System.out.println("Option entered was 3");
+            showMainMenu();
+            mainMenuOption = Integer.parseInt(input.nextLine().trim());
+
+            //If the option is 1
+            if (mainMenuOption == 1) {
+
+                System.out.println();
+
+                //Show the list
+                showInventory(inventory);
+                System.out.println();
+
+                //Show menu
+                showMainMenu();
+
+                //Ask for new option
+                mainMenuOption = input.nextInt();
+
+                //when a option here is chosen/ this could be 1 2 or 3 again
+                //goes to line 41
+
+            } else if (mainMenuOption == 2) {
+
+                showPurchaseMenu();
+
+                subMenuOption = Integer.parseInt(input.nextLine().trim());
+
+
+                System.out.println("Sub option " + subMenuOption);
+
+                if (subMenuOption == 3){
+
+                    mainMenuOption = 0;
+                    System.out.println("Finish transaction");
+                    continue;
+
+                }
+
+                while (subMenuOption != 3){
+
+                    if (subMenuOption == 1){
+
+                        System.out.println("Feed money chosen");
+                        subMenuOption = input.nextInt();
+
+                    } else if (subMenuOption == 2){
+
+                        System.out.println("Select product chosen");
+                        subMenuOption = input.nextInt();
+
+                    } else {
+                        subMenuOption = 0;
+                    }
+
+                    mainMenuOption = 0;
+
+
+                    System.out.println("This is line 75");
+
+                }
+
+            }
+
+
         }
-
-        showMenu();
-
-
     }
 
     public void showInventory(List<Item> inventory){
@@ -67,11 +118,21 @@ public class VendingMachineCLI {
     }
 
 
-    public void showMenu() {
+    public void showMainMenu() {
 
         System.out.println("(1) Display Vending Machine Items");
         System.out.println("(2) Purchase");
         System.out.println("(3) Exit");
+        System.out.print("Enter 1 2 or 3 ");
+        System.out.println();
+
+    }
+
+    public void showPurchaseMenu() {
+
+        System.out.println("(1) Feed Money");
+        System.out.println("(2) Select Product");
+        System.out.println("(3) Finish Transaction");
         System.out.print("Enter 1 2 or 3 ");
         System.out.println();
 
