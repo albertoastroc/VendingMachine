@@ -63,9 +63,17 @@ public class VendingMachineCLI {
 
                     if (subMenuOption == 1){
 
-                        System.out.println("Feed money in whole dollar amounts, enter 2 when done to choose a product");
-                        subMenuOption = input.nextInt();
 
+                        Character moneyFeedMenu = 'Y';
+                        while (moneyFeedMenu.equals('Y')) {
+                            System.out.println("Feed money in whole dollars amount: ");
+                            int money = input.nextInt();
+                            vendingMachine.addMoney(money);
+
+                            System.out.println("Current Money Provided $" + vendingMachine.getBalance());
+                            System.out.println("Continue adding money? (Y/N)");
+                            moneyFeedMenu = input.next().charAt(0);
+                        }
                     } else if (subMenuOption == 2){
 
                         showInventory(inventory);
@@ -76,14 +84,16 @@ public class VendingMachineCLI {
                         String itemChoice = input.nextLine();
                         if (itemChoice.equals("3")) {
 
-                            System.out.println("Finish transaction");
-                            subMenuOption = 3;
-                        }
-
-
                     } else {
                         subMenuOption = 3;
                     }
+
+                    } else {
+                        subMenuOption = 0;
+                    }
+                    showPurchaseMenu();
+                    subMenuOption = input.nextInt();
+
 
                 }
 
