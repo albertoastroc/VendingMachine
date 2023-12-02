@@ -43,17 +43,10 @@ public class VendingMachineCLI {
             if (mainMenuOption == 1) {
 
                 System.out.println();
-
-                //Show the list
                 showInventory(inventory);
                 System.out.println();
 
-                //Show menu
 
-                //Ask for new option
-
-                //when a option here is chosen/ this could be 1 2 or 3 again
-                //goes to line 41
 
             } else if (mainMenuOption == 2) {
 
@@ -66,33 +59,34 @@ public class VendingMachineCLI {
 
                 System.out.println("Sub option " + subMenuOption);
 
-                if (subMenuOption == 3){
-
-                    System.out.println("Finish transaction");
-                    continue;
-
-                }
-
                 while (subMenuOption != 3){
 
                     if (subMenuOption == 1){
 
-                        System.out.println("Feed money chosen");
+                        System.out.println("Feed money in whole dollar amounts, enter 2 when done to choose a product");
                         subMenuOption = input.nextInt();
 
                     } else if (subMenuOption == 2){
 
-                        System.out.println("Select product chosen");
-                        subMenuOption = input.nextInt();
+                        showInventory(inventory);
+                        System.out.println("Choose an item");
+                        //Show items
+                        //User chooses items until they press 3
+                        //When the user presses 3 return to main menu
+                        String itemChoice = input.nextLine();
+                        if (itemChoice.equals("3")) {
+
+                            System.out.println("Finish transaction");
+                            subMenuOption = 3;
+                        }
+
 
                     } else {
-                        subMenuOption = 0;
+                        subMenuOption = 3;
                     }
 
-
-                    System.out.println("This is line 75");
-
                 }
+
 
             }
 
