@@ -77,7 +77,15 @@ public class VendingMachineCLI {
                             System.out.println("Current Money Provided $" + vendingMachine.getBalance());
                             System.out.println("Continue adding money? (Y/N)");
                             moneyFeedMenu = input.next().charAt(0);
+
+                            while (moneyFeedMenu != 'Y' &&  moneyFeedMenu != 'N'){
+                                System.out.println("Invalid input");
+                                System.out.println("Continue adding money? (Y/N)");
+                                moneyFeedMenu = input.next().charAt(0);
+                            }
                         }
+
+
                     } else if (subMenuOption == 2) {
 
                         showInventory(inventory);
