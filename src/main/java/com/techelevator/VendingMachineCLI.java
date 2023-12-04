@@ -87,6 +87,8 @@ public class VendingMachineCLI {
 
                     if (subMenuOption == 1) {
 
+                        System.out.println("Current Money Provided: " + format.format(vendingMachine.getBalance()));
+
                         String moneyFeedMenu = "y";
                         while (moneyFeedMenu.equals("y")) {
                             System.out.println("Feed money in whole dollars amount: ");
@@ -117,7 +119,7 @@ public class VendingMachineCLI {
                             }
 
 
-                            System.out.println("Current Balance is " + format.format(vendingMachine.getBalance()));
+                            System.out.println("Current Money Provided: " + format.format(vendingMachine.getBalance()));
                             System.out.println("Continue adding money? (y/n)");
                             moneyFeedMenu = String.valueOf(input.next().charAt(0)).toLowerCase();
                         }
@@ -132,6 +134,8 @@ public class VendingMachineCLI {
                         System.out.println("Choose an item");
                         String itemChoice = input.next().toUpperCase();
 
+
+
                         if (vendingMachine.getMap().containsKey(itemChoice)) {
 
                             int chosenItemIndex = vendingMachine.getMap().get(itemChoice);
@@ -140,6 +144,9 @@ public class VendingMachineCLI {
                             if (vendingMachine.getBalance() >= chosenItem.getPrice()) {
 
                                 vendingMachine.subtractMoney(chosenItem.getPrice());
+
+                                System.out.println(chosenItem.getName() + " "  + chosenItem.getPrice());
+
                                 chosenItem.dispenseMessage();
                                 chosenItem.removeOneFromQuantity();
 
@@ -166,13 +173,14 @@ public class VendingMachineCLI {
                                 }
 
 
-
                             } else {
 
                                 System.out.println("Not enough money in balance for this item");
 
                             }
 
+                        } else {
+                            System.out.println("Invalid slot selection");
                         }
 
                         if (vendingMachine.getBalance() > 0) {
@@ -263,7 +271,7 @@ public class VendingMachineCLI {
 
     public void showInventory(List<Item> inventory) {
 
-        System.out.printf("%-10s %-20s %-10s %-15s %-25s%n", "Slot", "Product", "Price", "Stock", "Quantity");
+        System.out.printf("%-5s %-16s %-9s %-12s %-1s%n", "Slot", "Product", "Price", "Stock", "Quantity");
 
         for (Item item : inventory) {
 

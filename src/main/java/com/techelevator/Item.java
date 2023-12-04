@@ -19,12 +19,10 @@ public abstract class Item {
     @Override
     public String toString() {
         String stock = "In stock";
-        System.out.printf("%-10s %-20s $%-10.2f %-15s %-25s", slot, name, price, stock, quantity);
-
-
+        System.out.printf("%-5s %-16s $%-8.2f %-12s %-1s", slot, name, price, stock, quantity);
 
         return "";
-//                slot + " " + name + "$" + price + stock + quantity;
+
     }
 
     public String getName() {
