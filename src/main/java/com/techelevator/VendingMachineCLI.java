@@ -11,11 +11,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLOutput;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 /*
@@ -43,6 +42,9 @@ public class VendingMachineCLI {
         VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
         List<Item> inventory = vendingMachine.loadSnacksFromInventory();
         File log = new File("log.txt");
+        Date date = Date.from(Instant.now());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
 
 
         //First time the menu shows
@@ -73,7 +75,7 @@ public class VendingMachineCLI {
 
             } else if (mainMenuOption == 2) {
 
-                DecimalFormat format = new DecimalFormat("#.00");
+                DecimalFormat format = new DecimalFormat("$#.00");
 
                 mainMenuOption = 0;
 
@@ -101,25 +103,21 @@ public class VendingMachineCLI {
 
                             vendingMachine.addMoney(money);
 
-                            /////////
-
-                            LocalDateTime localDateTime = LocalDateTime.now();
-                            System.out.println(localDateTime);
 
                             try (PrintWriter dataOutput = new PrintWriter(
                                     // Passing true to the FileOutputStream constructor says to append
                                     new FileOutputStream(log, true)
                             )) {
 
-                                dataOutput.println("Fed money");
+                                dataOutput.println(simpleDateFormat.format(date) + " FEED MONEY: " + format.format(money) + " " + format.format(vendingMachine.getBalance()));
 
 
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
-                            //////////
 
-                            System.out.println("Current Balance is $" + format.format(vendingMachine.getBalance()));
+
+                            System.out.println("Current Balance is " + format.format(vendingMachine.getBalance()));
                             System.out.println("Continue adding money? (y/n)");
                             moneyFeedMenu = String.valueOf(input.next().charAt(0)).toLowerCase();
                         }
@@ -130,7 +128,7 @@ public class VendingMachineCLI {
 
                         showInventory(inventory);
                         System.out.println();
-                        System.out.println("Current Balance is $" + format.format(vendingMachine.getBalance()));
+                        System.out.println("Current Balance is " + format.format(vendingMachine.getBalance()));
                         System.out.println("Choose an item");
                         String itemChoice = input.next().toUpperCase();
 
@@ -145,7 +143,6 @@ public class VendingMachineCLI {
                                 chosenItem.dispenseMessage();
                                 chosenItem.removeOneFromQuantity();
 
-                                ////////
 
 
                                 try (PrintWriter dataOutput = new PrintWriter(
@@ -153,15 +150,21 @@ public class VendingMachineCLI {
                                         new FileOutputStream(log, true)
                                 )) {
 
-                                    dataOutput.println("Bought item");
+                                    dataOutput.println(simpleDateFormat.format(date) +
+                                            " " +
+                                            chosenItem.getName() +
+                                            " " +
+                                            chosenItem.getSlot() +
+                                            " " +
+                                            format.format(chosenItem.getPrice()) +
+                                            " " +
+                                            format.format(vendingMachine.getBalance()));
 
 
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
                                 }
 
-
-                                ///////////
 
 
                             } else {
@@ -173,7 +176,7 @@ public class VendingMachineCLI {
                         }
 
                         if (vendingMachine.getBalance() > 0) {
-                            System.out.println("Current Balance is $" + format.format(vendingMachine.getBalance()));
+                            System.out.println("Current Balance is " + format.format(vendingMachine.getBalance()));
                             System.out.println();
                         }
 
@@ -190,22 +193,17 @@ public class VendingMachineCLI {
 
 
 
-                    ////
-
-
                     try (PrintWriter dataOutput = new PrintWriter(
                             // Passing true to the FileOutputStream constructor says to append
                             new FileOutputStream(log, true)
                     )) {
 
-                        dataOutput.println("Gave change");
+                        dataOutput.println(simpleDateFormat.format(date) + " GIVE CHANGE: " + format.format(vendingMachine.getBalance()) + " " + "$0.00");
 
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
-                    /////
 
                     System.out.println(moneyToChange(vendingMachine.getBalance()));
                     vendingMachine.subtractMoney(vendingMachine.getBalance());
