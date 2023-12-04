@@ -2,11 +2,16 @@ package com.techelevator;
 
 import com.sun.tools.javac.Main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLOutput;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -37,6 +42,7 @@ public class VendingMachineCLI {
 
         VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
         List<Item> inventory = vendingMachine.loadSnacksFromInventory();
+        File log = new File("log.txt");
 
 
         //First time the menu shows
@@ -52,7 +58,7 @@ public class VendingMachineCLI {
             try {
                 mainMenuOption = input.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Please enter 1 2 or 3");
+                System.out.println("Invalid option, please enter a valid number");
                 mainMenuOption = 0;
             }
             input.nextLine();
@@ -93,8 +99,25 @@ public class VendingMachineCLI {
                             }
                             input.nextLine();
 
-
                             vendingMachine.addMoney(money);
+
+                            /////////
+
+                            LocalDateTime localDateTime = LocalDateTime.now();
+                            System.out.println(localDateTime);
+
+                            try (PrintWriter dataOutput = new PrintWriter(
+                                    // Passing true to the FileOutputStream constructor says to append
+                                    new FileOutputStream(log, true)
+                            )) {
+
+                                dataOutput.println("Fed money");
+
+
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            //////////
 
                             System.out.println("Current Balance is $" + format.format(vendingMachine.getBalance()));
                             System.out.println("Continue adding money? (y/n)");
@@ -122,6 +145,25 @@ public class VendingMachineCLI {
                                 chosenItem.dispenseMessage();
                                 chosenItem.removeOneFromQuantity();
 
+                                ////////
+
+
+                                try (PrintWriter dataOutput = new PrintWriter(
+                                        // Passing true to the FileOutputStream constructor says to append
+                                        new FileOutputStream(log, true)
+                                )) {
+
+                                    dataOutput.println("Bought item");
+
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                ///////////
+
+
                             } else {
 
                                 System.out.println("Not enough money in balance for this item");
@@ -145,6 +187,25 @@ public class VendingMachineCLI {
                 }
 
                 if (vendingMachine.getBalance() > 0) {
+
+
+
+                    ////
+
+
+                    try (PrintWriter dataOutput = new PrintWriter(
+                            // Passing true to the FileOutputStream constructor says to append
+                            new FileOutputStream(log, true)
+                    )) {
+
+                        dataOutput.println("Gave change");
+
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    /////
 
                     System.out.println(moneyToChange(vendingMachine.getBalance()));
                     vendingMachine.subtractMoney(vendingMachine.getBalance());
