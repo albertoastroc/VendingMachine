@@ -1,1 +1,7 @@
-//Check for inputs that should only ever be strings/ints
+//Show when an item is sold out
+//Add current money provided when they select option 2 purchase, should be 0 to start
+//Show message if product slot chosen doesn't exist
+//Show message if chosen product stock is 0, say it's sold out
+//Print item name and cost when dispensing
+//Bogo every 2 items, takes a dollar off the second item
+//Tests
