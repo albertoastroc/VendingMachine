@@ -1,0 +1,1 @@
+//Check for inputs that should only ever be strings/ints
