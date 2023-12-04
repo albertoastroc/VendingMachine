@@ -36,6 +36,10 @@ public class VendingMachine {
 
     public void subtractMoney(double itemPrice) {
 
+//        if (discount){
+//            itemPrice -= 1.0;
+//        }
+
         balance -= itemPrice;
     }
 

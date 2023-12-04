@@ -10,7 +10,7 @@ public abstract class Item {
 
     public Item(String slot, String name, double price, String category, int quantity) {
         this.name = name;
-        this.quantity = 5;
+        this.quantity = 2;
         this.price = price;
         this.slot = slot;
         this.category = category;
@@ -18,10 +18,15 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        String stock = "In stock";
-        System.out.printf("%-5s %-16s $%-8.2f %-12s %-1s", slot, name, price, stock, quantity);
+        String stock;
 
-        return "";
+        if (quantity == 0){
+            stock = "Sold out";
+        } else {
+            stock = quantity + " In stock";
+        }
+
+        return String.format("%-5s %-16s $%-8.2f %-1s", slot, name, price, stock);
 
     }
 

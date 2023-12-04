@@ -1,10 +1,10 @@
-//Show when an item is sold out  (should show when selecting 1 from main menu)
+
 
 //Bogo every 2 items, takes a dollar off the second item
 
 //Tests
 
-//**Show message if chosen product stock is 0, say it's sold out (In ours code, out of stock items disappears)
+/
 
 
 
@@ -15,6 +15,8 @@ Done
 
 //Show message if product slot chosen doesn't exist
 
+//entering d4 in purchase menu crashes
 
+//Show when an item is sold out  (should show when selecting 1 from main menu)
 
-
+/**Show message if chosen product stock is 0, say it's sold out (In ours code, out of stock items disappears)

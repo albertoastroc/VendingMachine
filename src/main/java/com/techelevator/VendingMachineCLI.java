@@ -81,7 +81,15 @@ public class VendingMachineCLI {
 
                 showPurchaseMenu();
 
-                int subMenuOption = input.nextInt();
+                int subMenuOption;
+
+                try {
+                    subMenuOption = input.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid option, please enter a valid number");
+                    subMenuOption = 0;
+                }
+                input.nextLine();
 
                 while (subMenuOption != 3) {
 
@@ -127,6 +135,9 @@ public class VendingMachineCLI {
 
                     } else if (subMenuOption == 2) {
 
+                        boolean discount = false;
+
+
 
                         showInventory(inventory);
                         System.out.println();
@@ -138,38 +149,49 @@ public class VendingMachineCLI {
 
                         if (vendingMachine.getMap().containsKey(itemChoice)) {
 
+
                             int chosenItemIndex = vendingMachine.getMap().get(itemChoice);
                             Item chosenItem = inventory.get(chosenItemIndex);
 
                             if (vendingMachine.getBalance() >= chosenItem.getPrice()) {
 
-                                vendingMachine.subtractMoney(chosenItem.getPrice());
+                                if (chosenItem.getQuantity() > 0){
 
-                                System.out.println(chosenItem.getName() + " "  + chosenItem.getPrice());
+                                    double price = chosenItem.getPrice();
 
-                                chosenItem.dispenseMessage();
-                                chosenItem.removeOneFromQuantity();
+                                    vendingMachine.subtractMoney(price);
 
-
-
-                                try (PrintWriter dataOutput = new PrintWriter(
-                                        // Passing true to the FileOutputStream constructor says to append
-                                        new FileOutputStream(log, true)
-                                )) {
-
-                                    dataOutput.println(simpleDateFormat.format(date) +
-                                            " " +
-                                            chosenItem.getName() +
-                                            " " +
-                                            chosenItem.getSlot() +
-                                            " " +
-                                            format.format(chosenItem.getPrice()) +
-                                            " " +
-                                            format.format(vendingMachine.getBalance()));
+                                    System.out.println(chosenItem.getName() + " "  + price);
 
 
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
+
+                                    chosenItem.dispenseMessage();
+                                    chosenItem.removeOneFromQuantity();
+
+
+
+                                    try (PrintWriter dataOutput = new PrintWriter(
+                                            // Passing true to the FileOutputStream constructor says to append
+                                            new FileOutputStream(log, true)
+                                    )) {
+
+                                        dataOutput.println(simpleDateFormat.format(date) +
+                                                " " +
+                                                chosenItem.getName() +
+                                                " " +
+                                                chosenItem.getSlot() +
+                                                " " +
+                                                format.format(chosenItem.getPrice()) +
+                                                " " +
+                                                format.format(vendingMachine.getBalance()));
+
+
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } else {
+                                    System.out.println("Product currently sold out");
                                 }
 
 
@@ -271,15 +293,12 @@ public class VendingMachineCLI {
 
     public void showInventory(List<Item> inventory) {
 
-        System.out.printf("%-5s %-16s %-9s %-12s %-1s%n", "Slot", "Product", "Price", "Stock", "Quantity");
+        System.out.printf("%-5s %-16s %-9s %-1s%n", "Slot", "Product", "Price", "Quantity");
 
         for (Item item : inventory) {
 
-            if (item.getQuantity() != 0) {
-
                 System.out.println(item);
 
-            }
         }
 
     }
