@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+
 /*
  * This class is provided to you as a *suggested* class to start
  * your project. Feel free to refactor this code as you see fit.
@@ -137,17 +138,25 @@ public class VendingMachineCLI {
 
     public String moneyToChange(double moneyDouble){
 
-        double test = 4.60 * 100;
+        double test = 4.15 * 100;
 
 
         int dollars = (int)test/100;
         double dollarRemainder = test%100;
+
+
+        double roundedNumber = roundUp(dollarRemainder);
+        dollarRemainder = roundedNumber;
+
+
+
         int quarters = (int)dollarRemainder/25 + (dollars * 4);
         double quarterRemainder = dollarRemainder%25;
         int dimes = (int)quarterRemainder/10;
         double dimesRemainder = quarterRemainder%10;
         int nickles = (int)dimesRemainder/5;
 
+        System.out.println("Printing dollars " + dollars);
         System.out.println("Printing quarters " + quarters);
         System.out.println("Printing dimes " + dimes);
         System.out.println("Printing nickles " + nickles);
@@ -221,6 +230,9 @@ public class VendingMachineCLI {
 
     }
 
+    public static double roundUp(double number) {
+        return Math.ceil(number);
+    }
 
     public void showInventory(List<Item> inventory) {
 
