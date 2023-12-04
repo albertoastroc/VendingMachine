@@ -263,11 +263,14 @@ public class VendingMachineCLI {
 
     public void showInventory(List<Item> inventory) {
 
+        System.out.printf("%-10s %-20s %-10s %-15s %-25s%n", "Slot", "Product", "Price", "Stock", "Quantity");
+
         for (Item item : inventory) {
 
             if (item.getQuantity() != 0) {
 
                 System.out.println(item);
+
             }
         }
 
