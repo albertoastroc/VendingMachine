@@ -137,14 +137,31 @@ public class VendingMachineCLI {
 
     public void moneyToChange(double moneyDouble){
 
-        double test = 8.65;
-        int dollars = (int) test;
-        System.out.println(dollars);
+        double test = 5.35 * 100;
 
-        double hundreds = (test - dollars);
-        double quarters = (hundreds * 100) / 25;
 
-        System.out.println(quarters);
+        int dollars = (int)test/100;
+        double dollarRemainder = test%100;
+        int quarters = (int)dollarRemainder/25;
+        double quarterRemainder = dollarRemainder%25;
+        int dimes = (int)quarterRemainder/10;
+        double dimesRemainder = quarterRemainder%10;
+        int nickles = (int)dimesRemainder/5;
+
+        System.out.println("Printing dollars " + dollars);
+        System.out.println("Printing quarters " + quarters);
+        System.out.println("Printing dimes " + dimes);
+        System.out.println("Printing nickles " + nickles);
+
+
+
+
+
+
+//        double hundreds = (test - test);
+//        double quarters = (hundreds * 100) / 25;
+//
+//        System.out.println(quarters);
 
     }
 
