@@ -233,7 +233,14 @@ public class VendingMachineCLI {
 
 
                     showPurchaseMenu();
-                    subMenuOption = input.nextInt();
+
+                    try {
+                        subMenuOption = input.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid option, please enter a valid number");
+                        subMenuOption = 0;
+                    }
+                    input.nextLine();
 
 
                 }
