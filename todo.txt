@@ -1,8 +1,12 @@
 
 
 
+//  log when finishing transaction
 
-//Tests
+
+
+
+
 
 
 
@@ -22,3 +26,9 @@ Done
 /**Show message if chosen product stock is 0, say it's sold out (In ours code, out of stock items disappears)
 
 //Bogo every 2 items, takes a dollar off the second item
+
+//Tests
+
+//   current balance when start purchase menu
+
+//Machine current balance updates to 0 when Finish Transaction"

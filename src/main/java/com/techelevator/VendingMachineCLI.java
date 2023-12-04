@@ -79,6 +79,8 @@ public class VendingMachineCLI {
 
                 mainMenuOption = 0;
 
+                System.out.println("Current Money Provided: " + format.format(vendingMachine.getBalance()));
+
                 showPurchaseMenu();
 
                 int subMenuOption;
@@ -94,7 +96,6 @@ public class VendingMachineCLI {
                 int bogoCounter = 1;
 
                 while (subMenuOption != 3) {
-
 
 
                     if (subMenuOption == 1) {
@@ -135,7 +136,7 @@ public class VendingMachineCLI {
                             System.out.println("Continue adding money? (y/n)");
                             moneyFeedMenu = String.valueOf(input.next().charAt(0)).toLowerCase();
                         }
-
+                        System.out.println("Current Money Provided: " + format.format(vendingMachine.getBalance()));
 
                     } else if (subMenuOption == 2) {
 
