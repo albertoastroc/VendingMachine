@@ -24,6 +24,8 @@ public class VendingMachineCLI {
 
     public void run() {
 
+        moneyToChange(8.5);
+
 
         VendingMachine vendingMachine = new VendingMachine(0, "main.csv");
         List<Item> inventory = vendingMachine.loadSnacksFromInventory();
@@ -68,21 +70,21 @@ public class VendingMachineCLI {
                         //TELL THE USER ONLY Y OR N WILL WORK
                         //CHECK FOR CASE
 
-                        Character moneyFeedMenu = 'Y';
-                        while (moneyFeedMenu.equals('Y')) {
+                        String moneyFeedMenu = "y";
+                        while (moneyFeedMenu.equals("y")) {
                             System.out.println("Feed money in whole dollars amount: ");
                             int money = input.nextInt();
                             vendingMachine.addMoney(money);
 
                             System.out.println("Current Money Provided $" + vendingMachine.getBalance());
-                            System.out.println("Continue adding money? (Y/N)");
-                            moneyFeedMenu = input.next().charAt(0);
+                            System.out.println("Continue adding money? (y/n)");
+                            moneyFeedMenu = String.valueOf(input.next().charAt(0)).toLowerCase();
 
-                            while (moneyFeedMenu != 'Y' &&  moneyFeedMenu != 'N'){
-                                System.out.println("Invalid input");
-                                System.out.println("Continue adding money? (Y/N)");
-                                moneyFeedMenu = input.next().charAt(0);
-                            }
+//                            while (!moneyFeedMenu.equals("y") ||  !moneyFeedMenu.equals("n")){
+//                                System.out.println("Invalid input");
+//                                System.out.println("Continue adding money? (Y/N)");
+//                                moneyFeedMenu = String.valueOf(input.next().charAt(0)).toLowerCase();
+//                            }
                         }
 
 
@@ -108,33 +110,44 @@ public class VendingMachineCLI {
 
                         }
 
-
-
-
-                        if (itemChoice.equals("3")) {
-
-
-
-
-                        } else {
-                            subMenuOption = 3;
-                        }
-
-                    } else {
-                        subMenuOption = 0;
                     }
+
+
                     showPurchaseMenu();
+
                     subMenuOption = input.nextInt();
 
 
                 }
 
 
+                vendingMachine.subtractMoney(vendingMachine.getBalance());
+                System.out.println(vendingMachine.getBalance());
+
+
+
             }
+
+
 
 
         }
     }
+
+
+    public void moneyToChange(double moneyDouble){
+
+        double test = 8.65;
+        int dollars = (int) test;
+        System.out.println(dollars);
+
+        double hundreds = (test - dollars);
+        double quarters = (hundreds * 100) / 25;
+
+        System.out.println(quarters);
+
+    }
+
 
     public void showInventory(List<Item> inventory) {
 
