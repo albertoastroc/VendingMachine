@@ -1,16 +1,6 @@
 
 
 
-//  log when finishing transaction
-
-
-
-
-
-
-
-
-
 
 Done
 //Add current money provided when they select option 2 purchase, should be 0 to start
@@ -31,4 +21,3 @@ Done
 
 //   current balance when start purchase menu
 
-//Machine current balance updates to 0 when Finish Transaction"
