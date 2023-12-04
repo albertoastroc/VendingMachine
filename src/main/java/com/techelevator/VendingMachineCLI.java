@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -137,74 +139,152 @@ public class VendingMachineCLI {
 
     public String moneyToChange(double moneyDouble){
 
-        double test = 4.60 * 100;
+        double input = 4.15 * 100;
+
+        BigDecimal quarterRep = new BigDecimal(25);
+        BigDecimal dimeRep = new BigDecimal(10);
+        BigDecimal nickelsRep = new BigDecimal(".5");
+
+        BigDecimal test = new BigDecimal(input).setScale(0, RoundingMode.HALF_EVEN);
+
+        BigDecimal quarters = test.divide(quarterRep, RoundingMode.HALF_EVEN);
+        System.out.println("Quarters");
+        System.out.println(quarters);
+
+        BigDecimal quartersRemainder = test.remainder(quarterRep);
+
+        BigDecimal dimes = quartersRemainder.divide(dimeRep, RoundingMode.HALF_EVEN);
+        System.out.println("Dimes");
+        System.out.println(dimes);
+
+        System.out.println("Why " + quarters);
+        BigDecimal dimesRemainder = quarters.remainder(dimeRep);
+        System.out.println("Dimes remainder " + dimesRemainder);
+
+        System.out.println("Nickels");
+        int nickels = dimes.intValueExact() / 5;
+        System.out.println("exact " + dimes.intValueExact());
+        System.out.println(nickels);
+
+        //BigDecimal nickels = dimesRemainder.divide(nickelsRep, RoundingMode.HALF_EVEN);
+
+        //System.out.println(nickels);
+
+        //remainder of dimes / 5
 
 
-        int dollars = (int)test/100;
-        double dollarRemainder = test%100;
-        int quarters = (int)dollarRemainder/25 + (dollars * 4);
-        double quarterRemainder = dollarRemainder%25;
-        int dimes = (int)quarterRemainder/10;
-        double dimesRemainder = quarterRemainder%10;
-        int nickles = (int)dimesRemainder/5;
 
-        System.out.println("Printing quarters " + quarters);
-        System.out.println("Printing dimes " + dimes);
-        System.out.println("Printing nickles " + nickles);
 
-        String quartersString = "";
-        String dimesString = "";
-        String nickelsString = "nickel";
-
-        String realResult = "";
-
-        if (quarters > 0){
-
-            if (quarters == 1){
-
-                quartersString = "quarter";
-
-            } else {
-
-                quartersString = "quarters";
-            }
-
-        }
-
-        if (dimes > 0){
-
-            if (dimes == 1){
-
-                dimesString = "dime";
-
-            } else {
-
-                dimesString = "dimes";
-            }
-
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        if (quarters > 0){
-
-            sb.append(quarters + " " + quartersString + " ");
-
-        }
-
-        if (dimes > 0){
-
-            sb.append(dimes + " " + dimesString + " ");
-
-        }
-
-        if (nickles > 0) {
-
-            sb.append(nickles + " " + nickelsString);
-
-        }
-
-        System.out.println(sb.toString());
+//
+//
+//
+//
+//        int dollars = (int)test/100;
+//        double dollarRemainder = test%100;
+//
+//        int quarters = (int)dollarRemainder/25 + (dollars * 4);
+//        double quarterRemainder = dollarRemainder%25;;
+//
+//        System.out.println(quarters);
+//
+//        double quarterValue = quarters * .25;
+//        System.out.println(quarterValue);
+//
+//
+//
+//        BigDecimal dollarRemainderBigDecimal = new BigDecimal(test % 100);
+//        BigDecimal resultDollarsRemainder = dollarRemainderBigDecimal.setScale(0, RoundingMode.HALF_UP);
+//
+//
+//        int testing = resultDollarsRemainder.intValueExact();
+//
+//
+//
+//
+//
+////        BigDecimal quarters = resultDollarsRemainder.divide(quarterRep, RoundingMode.HALF_UP);
+////        BigDecimal quartersRemainder = resultDollarsRemainder.remainder(dimeRep);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////
+////        BigDecimal quartersRemainderBigDecimal = new BigDecimal(dollarRemainder / 25 + (dollars * 4));
+////        BigDecimal resultQuartersRemainder = quartersRemainderBigDecimal.setScale(0, RoundingMode.HALF_UP);
+////
+////        System.out.println(resultQuartersRemainder);
+////
+////
+////
+////        int dimes = (int)quarterRemainder/10;
+////        double dimesRemainder = quarterRemainder%10;
+//
+////        int nickles = (int)dimesRemainder/5;
+////
+////        System.out.println("Printing quarters " + quarters);
+////        System.out.println("Printing dimes " + dimes);
+////        System.out.println("Printing nickles " + nickles);
+////
+////        String quartersString = "";
+////        String dimesString = "";
+////        String nickelsString = "nickel";
+//
+//        String realResult = "";
+//
+//        if (quarters > 0){
+//
+//            if (quarters == 1){
+//
+//                quartersString = "quarter";
+//
+//            } else {
+//
+//                quartersString = "quarters";
+//            }
+//
+//        }
+//
+//        if (dimes > 0){
+//
+//            if (dimes == 1){
+//
+//                dimesString = "dime";
+//
+//            } else {
+//
+//                dimesString = "dimes";
+//            }
+//
+//        }
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        if (quarters > 0){
+//
+//            sb.append(quarters + " " + quartersString + " ");
+//
+//        }
+//
+//        if (dimes > 0){
+//
+//            sb.append(dimes + " " + dimesString + " ");
+//
+//        }
+//
+//        if (nickles > 0) {
+//
+//            sb.append(nickles + " " + nickelsString);
+//
+//        }
+//
+//        System.out.println(sb.toString());
 
 
 //        String result = "Your change is " + quarters + " quarters " + dimes + " dimes " + nickles + " nickels";
