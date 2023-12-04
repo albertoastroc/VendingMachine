@@ -91,7 +91,11 @@ public class VendingMachineCLI {
                 }
                 input.nextLine();
 
+                int bogoCounter = 1;
+
                 while (subMenuOption != 3) {
+
+
 
                     if (subMenuOption == 1) {
 
@@ -135,9 +139,6 @@ public class VendingMachineCLI {
 
                     } else if (subMenuOption == 2) {
 
-                        boolean discount = false;
-
-
 
                         showInventory(inventory);
                         System.out.println();
@@ -155,13 +156,29 @@ public class VendingMachineCLI {
 
                             if (vendingMachine.getBalance() >= chosenItem.getPrice()) {
 
+                                double price = chosenItem.getPrice();
+                                String message;
+
+                                if (bogoCounter % 2 == 0){
+
+                                    price -= 1.00;
+                                    message = chosenItem.getName() + " gets BOGODO discount a dollar off! " + format.format(price);
+
+                                } else {
+
+                                    message = chosenItem.getName() + " " + format.format(price);
+                                    price = chosenItem.getPrice();
+                                }
+
+                                bogoCounter++;
+
                                 if (chosenItem.getQuantity() > 0){
 
-                                    double price = chosenItem.getPrice();
+
 
                                     vendingMachine.subtractMoney(price);
 
-                                    System.out.println(chosenItem.getName() + " "  + price);
+                                    System.out.println(message);
 
 
 
@@ -189,6 +206,8 @@ public class VendingMachineCLI {
                                     } catch (FileNotFoundException e) {
                                         e.printStackTrace();
                                     }
+
+
 
                                 } else {
                                     System.out.println("Product currently sold out");

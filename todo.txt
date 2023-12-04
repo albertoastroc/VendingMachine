@@ -1,6 +1,6 @@
 
 
-//Bogo every 2 items, takes a dollar off the second item
+
 
 //Tests
 
@@ -20,3 +20,5 @@ Done
 //Show when an item is sold out  (should show when selecting 1 from main menu)
 
 /**Show message if chosen product stock is 0, say it's sold out (In ours code, out of stock items disappears)
+
+//Bogo every 2 items, takes a dollar off the second item
