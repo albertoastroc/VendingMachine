@@ -135,26 +135,80 @@ public class VendingMachineCLI {
     }
 
 
-    public void moneyToChange(double moneyDouble){
+    public String moneyToChange(double moneyDouble){
 
-        double test = 5.35 * 100;
+        double test = 4.60 * 100;
 
 
         int dollars = (int)test/100;
         double dollarRemainder = test%100;
-        int quarters = (int)dollarRemainder/25;
+        int quarters = (int)dollarRemainder/25 + (dollars * 4);
         double quarterRemainder = dollarRemainder%25;
         int dimes = (int)quarterRemainder/10;
         double dimesRemainder = quarterRemainder%10;
         int nickles = (int)dimesRemainder/5;
 
-        System.out.println("Printing dollars " + dollars);
         System.out.println("Printing quarters " + quarters);
         System.out.println("Printing dimes " + dimes);
         System.out.println("Printing nickles " + nickles);
 
+        String quartersString = "";
+        String dimesString = "";
+        String nickelsString = "nickel";
+
+        String realResult = "";
+
+        if (quarters > 0){
+
+            if (quarters == 1){
+
+                quartersString = "quarter";
+
+            } else {
+
+                quartersString = "quarters";
+            }
+
+        }
+
+        if (dimes > 0){
+
+            if (dimes == 1){
+
+                dimesString = "dime";
+
+            } else {
+
+                dimesString = "dimes";
+            }
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (quarters > 0){
+
+            sb.append(quarters + " " + quartersString + " ");
+
+        }
+
+        if (dimes > 0){
+
+            sb.append(dimes + " " + dimesString + " ");
+
+        }
+
+        if (nickles > 0) {
+
+            sb.append(nickles + " " + nickelsString);
+
+        }
+
+        System.out.println(sb.toString());
 
 
+//        String result = "Your change is " + quarters + " quarters " + dimes + " dimes " + nickles + " nickels";
+//        System.out.println(result);
 
 
 
@@ -162,6 +216,8 @@ public class VendingMachineCLI {
 //        double quarters = (hundreds * 100) / 25;
 //
 //        System.out.println(quarters);
+
+        return "";
 
     }
 
