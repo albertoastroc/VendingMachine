@@ -10,7 +10,7 @@ public abstract class Item {
 
     public Item(String slot, String name, double price, String category, int quantity) {
         this.name = name;
-        this.quantity = 2;
+        this.quantity = 5;
         this.price = price;
         this.slot = slot;
         this.category = category;
