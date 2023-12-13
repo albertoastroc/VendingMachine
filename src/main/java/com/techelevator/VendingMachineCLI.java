@@ -275,12 +275,10 @@ public class VendingMachineCLI {
 
     public String moneyToChange(double currentBalance) {
 
-
         double moneyValue = currentBalance * 100;
 
         int dollars = (int) moneyValue / 100;
         double dollarRemainder = moneyValue % 100;
-
 
         dollarRemainder = Math.ceil(dollarRemainder);
 

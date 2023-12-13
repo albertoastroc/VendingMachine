@@ -25,6 +25,18 @@ public class VendingMachineTest {
 
     }
 
+    @Test
+    public void remove_money_from_balance() {
+
+        double expectedResult = 8.15;
+
+        vendingMachine.addMoney(10.0);
+        vendingMachine.subtractMoney(1.85);
+
+        assertEquals("Expected results is: ", expectedResult, vendingMachine.getBalance(), 0);
+
+    }
+
 
 
 
